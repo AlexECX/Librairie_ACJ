@@ -28,14 +28,6 @@ def index(request):
     return render(request, 'main_site/index.html', context)
 
 
-# def signin(request):
-#     context = {}
-#     return render(request, 'main_site/signin_form.html', context)
-
-# def signup(request):
-#     context = {}
-#     return render(request, 'main_site/signup_form.html', context)
-
 def userprofile(request):
     user = User.objects.get(username=request.user.username)
     return render(request, 'main_site/user_profile.html', {"user":user})

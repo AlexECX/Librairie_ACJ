@@ -1,22 +1,23 @@
 {% extends "base.html" %}
 
 {% block newlinks %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% load static %}
+<link rel="stylesheet" href="{% static "css/index.css" %}">
 {% endblock %}
 
 {% block content %}
 
+<div id="discount-books">
     {% if error_message %}
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
 
-    <table id="discount-books">
+    <table>
 
         {% for book in books_to_propose %}
         <tr>
             <td>{% include "books/book.html" with book_desc=book %}</td>
-            <td>
+            <td id="add-to-cart">
                 <button class="btn" type="button">
                     <a href="{% url 'online_shop:add_to_cart' book.id  %}">
                         <i class="fas fa-cart-plus"></i>
@@ -24,10 +25,9 @@
                 </button> 
             </td>
         </tr>
-
         {% endfor %}
 
     </table>
-
+</div>
 
 {% endblock %}

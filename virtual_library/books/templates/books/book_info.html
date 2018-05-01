@@ -1,13 +1,21 @@
 {% extends "base.html" %}
 
+{% block newlinks %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static "books/css/book-info.css" %}">
+{% endblock newlinks %}
+
 {% block content %}
 
-{% include "books/book.html" with book_desc=book_to_display authors=authors_of_book genres=genres_of_book %}    
+<div class="books-info">
+    {% include "books/book.html" with book_desc=book_to_display authors=authors_of_book genres=genres_of_book %}    
 
-<button class="btn" type="button">
-    <a href="{% url 'online_shop:add_to_cart' book_to_display.id  %}">
-        <i class="fas fa-cart-plus"></i>
-    </a>
-</button> 
+    <button class="btn" type="button">
+        <a href="{% url 'online_shop:add_to_cart' book_to_display.id  %}">
+            <i class="fas fa-cart-plus"></i>
+        </a>
+    </button> 
+</div>
+
 
 {% endblock %}

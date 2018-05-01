@@ -23,10 +23,10 @@ def search(request, keyword:str=None):
         authors = []
 
         #The keyword is a name of an author
-        books_by_author = Book.objects.filter(authors__name__icontains=keyword)
-        if books_by_author:
-            for b1 in books_by_author:
-                books.append((b1.id, b1.title))
+        # books_by_author = Book.objects.filter(authors__name__icontains=keyword)
+        # if books_by_author:
+        #     for b1 in books_by_author:
+        #         books.append((b1.id, b1.title))
 
         #The keyword is a title of a book
         books_by_title = Book.objects.filter(title__icontains=keyword)
@@ -35,23 +35,23 @@ def search(request, keyword:str=None):
                 books.append((b2.id, b2.title))
 
         #The keyword is a genre
-        books_by_genre = Book.objects.filter(genres__name__icontains=keyword)
-        if books_by_genre:
-            for b3 in books_by_genre:
-                books.append((b3.id, b3.title))
+        # books_by_genre = Book.objects.filter(genres__name__icontains=keyword)
+        # if books_by_genre:
+        #     for b3 in books_by_genre:
+        #         books.append((b3.id, b3.title))
 
         #Getting the authors of the books
-        if books:
-            for b in books:
-                authors = []
-                authors_of_book_queryset = Author.objects.filter(book__title=b[1])
-                if authors_of_book_queryset:
-                    for a1 in authors_of_book_queryset:
-                        authors.append(a1.name)
-                    books_and_authors.append((b[0], b[1], authors))
+        # if books:
+        #     for b in books:
+        #         authors = []
+        #         authors_of_book_queryset = Author.objects.filter(book__title=b[1])
+        #         if authors_of_book_queryset:
+        #             for a1 in authors_of_book_queryset:
+        #                 authors.append(a1.name)
+        #             books_and_authors.append((b[0], b[1], authors))
 
         context = {
-            'books_and_authors': books_and_authors,
+            'books': books_by_title,
             'keyword': keyword
             }
 

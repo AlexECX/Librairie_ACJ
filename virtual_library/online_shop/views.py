@@ -41,8 +41,8 @@ def shop(request):
 @login_required
 @refresh_page_decorate
 def add_to_cart(request, book_id):
-    user_cart = request.session.get("shopping_cart")
-    if not user_cart:
+    user_cart_id = request.session.get("shopping_cart")
+    if not user_cart_id:
         user_cart = SessionCart.objects.filter(user=request.user).first()
         if not user_cart:
             a = SessionCart()
@@ -52,7 +52,7 @@ def add_to_cart(request, book_id):
         request.session["shopping_cart"] = user_cart.id
         request.session.modified = True
     else:
-        user_cart = SessionCart.objects.get(id=request.session["shopping_cart"])
+        user_cart = SessionCart.objects.get(id=user_cart_id)
 
     query = Book.objects.filter(id=book_id).first()
     user_cart.books.add(query)
@@ -62,10 +62,23 @@ def add_to_cart(request, book_id):
 @login_required
 @refresh_page_decorate
 def remove_from_cart(request, book_id):
-    user_cart = request.session.get("shopping_cart")
-    if user_cart:
-        to_delete = user_cart.books.filter(id=book_id).first()
-        to_delete.delete()
+    user_cart_id = request.session.get("shopping_cart")
+    if not user_cart_id:
+        user_cart = SessionCart.objects.filter(user=request.user).first()
+        if not user_cart:
+            a = SessionCart()
+            a.user = request.user
+            a.save()
+            user_cart = a
+        request.session["shopping_cart"] = user_cart.id
+        request.session.modified = True
+    else:
+        user_cart = SessionCart.objects.get(id=user_cart_id)
+
+    to_remove = user_cart.books.filter(id=book_id).first()
+    if to_remove:
+        user_cart.books.remove(to_remove)
+
 
 
 @login_required
@@ -83,11 +96,7 @@ def view_cart(request):
     else:
         user_cart = SessionCart.objects.get(id=request.session["shopping_cart"])
 
-    shopping_cart = user_cart.books.all()
-
-    shopping_cart_books = []
-    for entry in shopping_cart:
-        shopping_cart_books.append({ "id":entry.id, "title":entry.title })
+    shopping_cart_books = user_cart.books.all()
 
     context = { "books": shopping_cart_books, }
     return render(request, "online_shop/shopping_cart.html", context)

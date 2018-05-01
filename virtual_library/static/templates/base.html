@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
     {% block newlinks %}
     {% endblock %}
-    <title>This is the title of the base template</title>
+    <title>Librairie ACJ</title>
 </head>
 
 <body>
@@ -20,10 +20,9 @@
 <div class="text-section">
     <h1>This is the virtual bookstore website</h1>
 
-    <div class="block-content">
-        {% block content %}
-        {% endblock %}
-    </div>
+    {% block content %}
+    {% endblock %}
+
 </div>
 
 {% block footer %}

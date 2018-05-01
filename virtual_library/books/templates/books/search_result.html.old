@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+    {% if not books_and_authors %}
+
+        <p> 0 book found using "{{ keyword }}". </p>
+
+    {% else %}
+
+        <p>{{ books_and_authors|length }} book found using "{{ keyword }}". </p>
+
+        <table id="search-results">
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+            </tr>
+
+            {% for i in books_and_authors %}
+            <tr>
+                <td><a href = "{% url 'books:get_info' i.0  %}">{{ i.1 }}</a></td>
+                <td>{% for j in i.2 %} {{ j }} {% endfor %}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    {% endif %}
+
+{% endblock %}

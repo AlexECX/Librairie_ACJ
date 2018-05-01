@@ -1,38 +1,36 @@
 {% extends "base.html" %}
 
+{% block newlinks %}
+{% load static %}
+<link rel="stylesheet" href="{% static "online_shop/css/view-cart.css" %}">
+{% endblock newlinks %}
+
 {% block content %}
 
-    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% if error_message %}
+    <p><strong>{{ error_message }}</strong></p>
+{% endif %}
 
-
+<div id="cart-books">
     {% if not books %}
-
-        <p> Shopping Cart is empty. </p>
-
+        <h3> Shopping Cart is empty. </h3>
     {% else %}
-
-
         <table id="shopping_cart">
+            {% for book in books %}
             <tr>
-                <th>Title</th>
-                
-            </tr>
-
-            {% for i in books %}
-            <tr>
-                <td><a href = "{% url 'books:get_info' i.id  %}">{{ i.title }}</a></td>
-
-
-                <!-- <td>
-                    {% for j in i.authors %}
-                        {{ j }}
-                    {% endfor %}
-                </td> -->
+                <td>{% include "books/book.html" with book_desc=book %}</td>
+                <td id="remove-from-cart">
+                    <button class="btn" type="button">
+                        <a href="{% url 'online_shop:remove_from_cart' book.id  %}">
+                            <i class="fas fa-cart-plus"></i>
+                        </a>
+                    </button> 
+                </td>
             </tr>
             {% endfor %}
-
         </table>
-
     {% endif %}
+</div>
+    
 
 {% endblock %}
