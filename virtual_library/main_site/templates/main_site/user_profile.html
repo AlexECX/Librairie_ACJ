@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <p>{{ user.username }} </p>
+    <p>{{ user.email }}</p>
+    <p>{{ user.first_name }} </p>
+    <p>{{ user.last_name }} </p>
+    
+
+{% endblock %}

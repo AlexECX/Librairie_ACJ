@@ -1,0 +1,12 @@
+{% block search %}
+
+<div id="search-form">
+    <form action="{% url 'books:search' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="research" placeholder="search" id="string_to_look_for" 
+               required minlength="1">
+        <button type="submit" ><i class="fas fa-search"></i></button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% block navbar %}
+
+<div class="navbar-element">
+    <ul>
+        <li id="masthead_name"><a href="{% url 'main_site:index' %}"><i class="fas fa-book"></i> Virtual BookStore</a></li>
+
+        <li id="navbar-search">{% include "search.html" %}</li>
+
+        {% if not user.is_authenticated %}
+        <li class="navbar-right"><a href="{% url 'main_site:signup' %}"><i class="fas fa-user-plus"></i> Sign up</a></li>
+        <li class="navbar-right"><a href="{% url 'main_site:signin' %}"><i class="fas fa-user"></i> Sign in</a></li>
+
+        {% else %}
+        <li class="navbar-right"><a href="{% url 'main_site:logout' %}"><i class="fas fa-sign-out-alt"></i> Sign out</a></li>
+        <li class="navbar-right"><a href="{% url 'online_shop:view_cart' %}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
