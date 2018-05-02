@@ -18,8 +18,11 @@ def refresh_page_decorate(view_func):
     :Returns: function: La fonction view décoré
     """
     def refresh_page(request, *args, **kwargs):
+        next = request.POST.get("next", "/")
         view_func(request, *args, **kwargs)
-        return redirect(request.META.get('HTTP_REFERER','main_site:index'))
+
+        return redirect(next)
+        #return redirect(request.META.get('HTTP_REFERER','main_site:index'))
     return refresh_page
 
 # Create your views here.
@@ -35,7 +38,6 @@ def shop(request):
         return redirect(reverse('main_site:index'))
     else:
         return render(request, "online_shop/sale_form.html", {})
-
 
 
 @login_required

@@ -107,6 +107,14 @@ Text Section
 	margin-bottom: 2%;
 }
 
+.text-section #block-content
+{
+	padding: 0;
+	margin: 0 auto 20px auto;
+	width: 100%;
+    text-align: center;
+}
+
 .text-section h1
 {
 	text-align: center;
@@ -214,13 +222,13 @@ form
 #sign-in input, #sign-up input {
 	display: block;
 	margin:auto;
-	width: 40%;
+	width: 20em;
 }
 
 #sign-in label, #sign-up label {
 	display: block;
 	margin:auto;
-	width: 40%;
+	width: 20em;
 }
 
 #sign-in button, #sign-up button

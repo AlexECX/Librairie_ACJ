@@ -5,7 +5,9 @@
 <div class='book'>
     {% load static %}
     {% if book_desc.photo%}
-        <img id='books-img' src="{{ MEDIA_URL }}{{ book_desc.photo.url }}">
+        <a href = "{% url 'books:get_info' book_desc.id  %}">
+            <img id='books-img' src="{{ MEDIA_URL }}{{ book_desc.photo.url }}">
+        </a> 
     {% endif %}
     {% if book_desc.title %} 
         <p id='books-title'>

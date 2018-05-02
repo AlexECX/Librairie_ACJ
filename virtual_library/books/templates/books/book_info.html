@@ -10,11 +10,14 @@
 <div class="books-info">
     {% include "books/book.html" with book_desc=book_to_display authors=authors_of_book genres=genres_of_book %}    
 
-    <button class="btn" type="button">
-        <a href="{% url 'online_shop:add_to_cart' book_to_display.id  %}">
+    <form method="POST" action="{% url 'online_shop:add_to_cart' book_to_display.id  %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.path }}">
+        <button class="btn" type="submit">
             <i class="fas fa-cart-plus"></i>
-        </a>
-    </button> 
+        </button> 
+    </form>
+             
 </div>
 
 

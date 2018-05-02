@@ -20,11 +20,13 @@
             <tr>
                 <td>{% include "books/book.html" with book_desc=book %}</td>
                 <td id="remove-from-cart">
-                    <button class="btn" type="button">
-                        <a href="{% url 'online_shop:remove_from_cart' book.id  %}">
+                    <form method="POST" action="{% url 'online_shop:remove_from_cart' book.id  %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.path }}">
+                        <button class="btn" type="submit">
                             <i class="fas fa-cart-plus"></i>
-                        </a>
-                    </button> 
+                        </button> 
+                    </form>
                 </td>
             </tr>
             {% endfor %}
