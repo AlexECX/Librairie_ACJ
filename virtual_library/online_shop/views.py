@@ -56,7 +56,7 @@ def add_to_cart(request, book_id):
     else:
         user_cart = SessionCart.objects.get(id=user_cart_id)
 
-    query = Book.objects.filter(id=book_id).first()
+    query = get_object_or_404(Book, id=book_id)
     user_cart.books.add(query)
 
 

@@ -1,14 +1,17 @@
-from django.http import HttpResponse, HttpResponseRedirect
-from django.template import loader, Context
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
 from django.contrib import messages
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
+from django.http import HttpResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render
+#from django.template import Context, loader
+from django.urls import reverse
 
-from main_site.forms import SignUpForm
+# Database models import
 from books.models import Book
+from main_site.forms import SignUpForm
+
 
 def index(request):
 
@@ -27,7 +30,7 @@ def index(request):
              }
     return render(request, 'main_site/index.html', context)
 
-
+@login_required
 def userprofile(request):
     user = User.objects.get(username=request.user.username)
     return render(request, 'main_site/user_profile.html', {"user":user})
@@ -41,11 +44,11 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect(reverse('main_site:index'))
+            return redirect('main_site:index')
     else:
         form = SignUpForm()
-    return render(request, 'main_site/signup_form.html', {'form': form})
+        return render(request, 'main_site/signup_form.html', {'form': form})
 
-
+# Not in use
 def error(request):
     return render(request, '404.html', {})
