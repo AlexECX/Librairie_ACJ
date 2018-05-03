@@ -1,14 +1,9 @@
-bin/
 Build/
-include/
-lib/
-virtual_library/.vscode/
+venv/
 virtual_library/db.sqlite3
 virtual_library/__pycache__/
 virtual_library/virtual_library/__pycache__/
 main_site/__pycache__/
-lib64
-pip-selfcheck.json
 pyvenv.cfg
 
 *.pyc
