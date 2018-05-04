@@ -1,0 +1,54 @@
+/*
+Array
+*/
+
+#main-index
+{
+    width: 100%;
+    align-content: center;
+}
+
+#discount-books table
+{
+    width: 50%;
+	margin: auto;
+    border-collapse: collapse;
+}
+
+#discount-books img
+{
+    float: left;
+    margin: 5px 10px;
+    height: 100px;
+    width: 100px;
+}
+
+#discount-books button
+{
+    margin: auto 5px;
+}
+
+#discount-books td, #discount-books th
+{
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#discount-books th
+{
+    padding-top: 12px;
+	padding-bottom: 12px;
+	font-size:1.2em;
+    background-color: #333333;
+    color: white;
+}
+
+#add-to-cart
+{
+    text-align: center;
+}
+
+#books-buyprice
+{
+	padding-left: 125px;
+}

@@ -1,36 +1,36 @@
-{% extends "base.html" %}
+{% extends "main_site/base.html" %}
 
 {% block newlinks %}
 {% load static %}
 <link rel="stylesheet" href="{% static "online_shop/css/view-cart.css" %}">
+
 {% endblock newlinks %}
 
 {% block content %}
 
 {% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
+<p><strong>{{ error_message }}</strong></p>
 {% endif %}
 
 <div id="cart-books">
     {% if not books %}
-        <h3> Shopping Cart is empty. </h3>
+    <h3> Shopping Cart is empty. </h3>
     {% else %}
-        <table id="shopping_cart">
-            {% for book in books %}
-            <tr>
-                <td>{% include "books/book.html" with book_desc=book %}</td>
-                <td id="remove-from-cart">
-                    <form method="POST" action="{% url 'online_shop:remove_from_cart' book.id  %}">
-                        {% csrf_token %}
-                        <input type="hidden" name="next" value="{{ request.path }}">
-                        <button class="btn" type="submit">
-                            <i class="fas fa-cart-plus"></i>
-                        </button> 
-                    </form>
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
+	<table id="shopping_cart">
+		{% for book in books %}
+		<tr>
+			<td>{% include "books/book.html" with book_desc=book %}</td>
+			<td id="remove-from-cart">
+				<form method="POST" action="{% url 'online_shop:remove_from_cart' book.id  %}">
+					{% csrf_token %}
+					<button class="btn" type="submit" name="next" value="{{ request.path }}">
+						<i class="fas fa-cart-plus"></i>
+					</button> 
+				</form>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
     {% endif %}
 </div>
     

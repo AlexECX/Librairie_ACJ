@@ -1,38 +1,40 @@
-{% extends "base.html" %}
+{% extends "main_site/base.html" %}
 
 {% block newlinks %}
-{% load static %}
-<link rel="stylesheet" href="{% static "books/css/search-result.css" %}">
+	{% load static %}
+	<link rel="stylesheet" href="{% static "books/css/search-result.css" %}">
 {% endblock newlinks %}
 
 {% block content %}
 
-{% if error_message %}
-    <p><strong>{{ error_message }}</strong></p>
-{% endif %}
+	{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+	{% endif %}
 
-<div id="cart-books">
-    {% if not books %}
-        <h3> 0 book found using "{{ keyword }}". </h3>
-    {% else %}
-        <h3>{{ books|length }} book found using "{{ keyword }}". </h3>
+	<div id="cart-books">
+		{% if not books %}
+		<h3> 0 book found using "{{ keyword }}". </h3>
+		{% else %}
+		<h3>{{ books|length }} book found using "{{ keyword }}". </h3>
 
-        <table id="shopping_cart">
-            {% for book in books %}
-            <tr>
-                <td>{% include "books/book.html" with book_desc=book %}</td>
-                <td id="add-to-cart">
-                    <button class="btn" type="button">
-                        <a href="{% url 'online_shop:add_to_cart' book.id  %}">
-                            <i class="fas fa-cart-plus"></i>
-                        </a>
-                    </button> 
-                </td>
-            </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
-</div>
-    
+		<table id="shopping_cart">
+			{% for book in books %}
+			<tr>
+				<td>{% include "books/book.html" with book_desc=book %}</td>
+				<td id="add-to-cart">
+
+					<form method="POST" action="{% url 'online_shop:add_to_cart' book.id  %}">
+						{% csrf_token %}
+						<button class="btn" type="submit" name="next" value="{{ request.path }}">
+							<i class="fas fa-cart-plus"></i>
+						</button> 
+					</form>
+
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+		{% endif %}
+	</div>
 
 {% endblock %}

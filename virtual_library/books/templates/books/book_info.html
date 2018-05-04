@@ -1,19 +1,18 @@
-{% extends "base.html" %}
+{% extends "main_site/base.html" %}
 
 {% block newlinks %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static "books/css/book-info.css" %}">
+{% load static %}
+<link rel="stylesheet" href="{% static "books/css/book-info.css" %}">
 {% endblock newlinks %}
 
 {% block content %}
 
 <div class="books-info">
-    {% include "books/book.html" with book_desc=book_to_display authors=authors_of_book genres=genres_of_book %}    
+    {% include "books/book.html" with book_desc=book authors=authors_of_book genres=genres_of_book %}    
 
-    <form method="POST" action="{% url 'online_shop:add_to_cart' book_to_display.id  %}">
+    <form method="POST" action="{% url 'online_shop:add_to_cart' book.id  %}">
         {% csrf_token %}
-        <input type="hidden" name="next" value="{{ request.path }}">
-        <button class="btn" type="submit">
+        <button class="btn" type="submit" name="next" value="{{ request.path }}">
             <i class="fas fa-cart-plus"></i>
         </button> 
     </form>

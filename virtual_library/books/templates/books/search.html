@@ -3,11 +3,11 @@
 <div id="search-form">
 	<form action="{% url 'books:search' %}" method="post">
 		{% csrf_token %}
-		<input 
-			id="string_to_look_for" type="text" name="research" 
+		<input id="string_to_look_for" type="text" name="research" 
 			placeholder="search" required minlength="1">
     	<button type="submit" ><i class="fas fa-search"></i></button>
 	</form>
 </div>
 
-{% endblock %}
+{% endblock search %}
+

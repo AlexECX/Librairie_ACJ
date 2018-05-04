@@ -1,35 +1,28 @@
-{% extends "base.html" %}
+{% extends "main_site/base.html" %}
 
 {% block newlinks %}
-{% load static %}
-<link rel="stylesheet" href="{% static "css/index.css" %}">
-{% endblock %}
+	{% load static %}
+	<link rel="stylesheet" href="{% static "main_site/css/index.css" %}">
+{% endblock newlinks %}
+
 
 {% block content %}
 
-<div id="discount-books">
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-    {% endif %}
+	<div id="discount-books">
+		{% if error_message %}
+		<p><strong>{{ error_message }}</strong></p>
+		{% endif %}
 
-    <table>
+		<table>
+			{% for book in books_to_propose %}
+			<tr>
+				<td>{% include "books/book.html" with book_desc=book %}</td>
+				<td id="add-to-cart">
+					{% include "online_shop/cart_button.html" with book=book %}
+				</td>
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
 
-        {% for book in books_to_propose %}
-        <tr>
-            <td>{% include "books/book.html" with book_desc=book %}</td>
-            <td id="add-to-cart">
-                <form method="POST" action="{% url 'online_shop:add_to_cart' book.id  %}">
-                    {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ request.path }}">
-                    <button class="btn" type="submit">
-                        <i class="fas fa-cart-plus"></i>
-                    </button> 
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-
-    </table>
-</div>
-
-{% endblock %}
+{% endblock content%}

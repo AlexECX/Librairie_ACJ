@@ -1,0 +1,7 @@
+
+<form method="POST" action="{% url 'online_shop:add_to_cart' book.id  %}">
+	{% csrf_token %}
+	<button class="btn" type="submit" name="next" value="{{ request.path }}">
+		<i class="fas fa-cart-plus"></i>
+	</button> 
+</form>
